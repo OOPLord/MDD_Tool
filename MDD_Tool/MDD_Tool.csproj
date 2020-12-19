@@ -4,4 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Backbone.js" Version="1.3.3" />
+    <PackageReference Include="jQuery" Version="3.5.1" />
+    <PackageReference Include="lodash" Version="4.17.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
+  </ItemGroup>
+
 </Project>
