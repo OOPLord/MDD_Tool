@@ -19,7 +19,7 @@ namespace ModelTransformer
 
         public override string ToString()
         {
-            return @$"{Type} {Name}";
+            return $"{Type} {Name}";
         }
     }
 }

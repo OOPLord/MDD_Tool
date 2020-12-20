@@ -23,7 +23,7 @@ namespace ModelTransformer
 
         public override string ToString()
         {
-            return @$"{AccessModifier} {Type} {Name} {{ get; set; }}";
+            return @$"{AccessModifier.ToCorrectString()} {Type} {Name} {{ get; set; }}";
         }
     }
 }

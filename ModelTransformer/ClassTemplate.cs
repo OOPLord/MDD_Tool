@@ -8,11 +8,9 @@ namespace ModelTransformer
     {
         public ClassTemplate(
             string name,
-            string nameSpace,
             AccessModifierType accessModifier = AccessModifierType.Public)
         {
             Name = name;
-            Namespace = nameSpace;
             AccessModifier = accessModifier;
 
             References = new List<string>();
@@ -23,7 +21,6 @@ namespace ModelTransformer
         public IList<string> References { get; set; }
         public AccessModifierType AccessModifier { get; set; }
         public string Name { get; set; }
-        public string Namespace { get; set; }
         public IList<PropertyTemplate> Properties { get; set; }
         public IList<MethodTemplate> Methods { get; set; }
 
@@ -34,15 +31,15 @@ namespace ModelTransformer
             // adding references to namespace
             foreach (var refereces in References)
             {
-                classBuilder.AppendLine(@$"using {refereces};");
+                classBuilder.AppendLine($"using {refereces};");
             }
 
             // adding namespace
             classBuilder.AppendLine();
-            classBuilder.AppendLine(@$"namespace {Namespace}\n{{");
+            //classBuilder.AppendLine($"namespace {Namespace}\n{{");
 
             // creating class
-            classBuilder.AppendLine(@$"\t{AccessModifier} class {Name}\n\t{{");
+            classBuilder.AppendLine($"\t{AccessModifier.ToCorrectString()} class {Name}\n\t{{");
 
             // adding properties to class
             foreach (var property in Properties)
@@ -57,10 +54,10 @@ namespace ModelTransformer
             }
 
             // end of class
-            classBuilder.AppendLine(@$"\t}}");
+            classBuilder.AppendLine($"\t}}");
 
             // end of namespace
-            classBuilder.AppendLine(@$"}}");
+            //classBuilder.AppendLine($"}}");
 
             return classBuilder.ToString();
         }

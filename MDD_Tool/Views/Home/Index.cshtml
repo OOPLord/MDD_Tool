@@ -1,32 +1,87 @@
-﻿@model IEnumerable<MDD_Tool.Models.Phone>
-@{
-    //ViewData["Title"] = "Список смартфонов";
+﻿@{
     Layout = null;
 }
 <!DOCTYPE html>
 
 <html>
 <head>
-    <title>Магазин смартфонов</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+    <style>
+        label {
+            align-content: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+    </style>
+
+    <title>UML converter</title>
 </head>
 <body>
-    <h3>Смартфоны</h3>
-    <table>
-        <tr>
-            <td>Модель</td>
-            <td>Производитель</td>
-            <td>Цена</td>
-            <td></td>
-        </tr>
-        @foreach (var phone in Model)
-        {
-            <tr>
-                <td>@phone.Name</td>
-                <td>@phone.Company</td>
-                <td>@phone.Price</td>
-                <td><a href="~/Home/Buy/@phone.Id">Купить</a></td>
-            </tr>
-        }
-    </table>
+    <div class="text-center">
+        <h1 class="display-4">Draw your class diagram</h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="pseudocode_text_area" class="control-label text">Enter your Class diagram layout:</label>
+
+                <form method="post">
+                    <textarea name="UmlCode" id="pseudocode_text_area" rows="15" class="form-control">
+classDiagram
+                class Animal{
+                +int age
+                +String gender
+                +isMammal() : bool
+                +mate()
+                }
+                class Duck{
+                  +String beakColor
+                  +swim()
+                  +quack()
+                }
+                class Fish{
+                  -int sizeInFeet
+                  -canEat()
+                }
+                class Zebra{
+                  +bool is_wild
+                  +run()
+                }
+
+                Animal --|> Duck
+                Animal <|-- Fish
+                Animal <|-- Zebra
+                    </textarea>
+                    <button type="submit" style="margin-top: 20px;">
+                        Generate C# code
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <label class="control-label text">Preview Class diagram:</label>
+                <div id="mermaid_preview" name="mermaidRenderer" class="mermaid">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <label for="code_output" class="control-label">C# code generator:</label>
+                <textarea id="code_output" name="codeGeneratorOutput" readonly rows="25" class="form-control">
+@ViewBag.Code
+                </textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/MermaidRender.js"></script>
 </body>
 </html>

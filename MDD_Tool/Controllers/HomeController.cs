@@ -1,5 +1,6 @@
 ﻿using MDD_Tool.Models;
 using Microsoft.AspNetCore.Mvc;
+using ModelTransformer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,33 +10,32 @@ namespace MDD_Tool.Controllers
 {
     public class HomeController : Controller
     {
-        private MobileContext _db;
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
-        public HomeController(MobileContext db)
-        {
-            _db = db;
-        }
-
-        public IActionResult Index()
-        {
-            return View(_db.Phones.ToList());
-        }
+        //[HttpPost]
+        //public IActionResult Index(UmlCodeModel model)
+        //{
+        //    return Content(UmlParser.Parse(model.UmlCode));
+        //}
 
         [HttpGet]
-        public IActionResult Buy(int? id)
+        public IActionResult Index()
         {
-            if (id == null) return RedirectToAction("Index");
-            ViewBag.PhoneId = id;
             return View();
         }
 
         [HttpPost]
-        public string Buy(Order order)
+        public IActionResult Index(UmlCodeModel model)
         {
-            _db.Orders.Add(order);
-            // сохраняем в бд все изменения
-            _db.SaveChanges();
-            return "Спасибо, " + order.User + ", за покупку!";
+            if (model != null && !string.IsNullOrWhiteSpace(model.UmlCode))
+            {
+                ViewBag.Code = UmlParser.Parse(model.UmlCode);
+            }
+
+            return View();
         }
     }
 }

@@ -24,7 +24,9 @@
     <div class="row">
         <div class="form-group col-md-6">
             <label for="pseudocode_text_area" class="control-label text">Enter your Class diagram layout:</label>
-            <textarea name="mermaidPseudocode" id="pseudocode_text_area" rows="10" class="form-control">
+            
+            <form method="post">
+                <textarea name="mermaidPseudocode" id="pseudocode_text_area" rows="10" class="form-control">
 classDiagram
                 class Animal{
                 +int age
@@ -49,7 +51,8 @@ classDiagram
                 Animal --|> Duck
                 Animal <|-- Fish
                 Animal <|-- Zebra
-</textarea>
+                </textarea>
+            </form>
             <span style="color:red;"></span>
         </div>
 
@@ -58,14 +61,19 @@ classDiagram
             <div id="mermaid_preview" name="mermaidRenderer" class="mermaid">
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <label for="code_output" class="control-label">C# code generator:</label>
-            <textarea id="code_output" name="codeGeneratorOutput" readonly rows="25" class="form-control"></textarea>
+        <div>
+            <button class="codegenerateButton" type="submit">Generate C# code</button>
         </div>
     </div>
+
+    @*<div class="row">
+            <div class="col-md-12">
+                <label for="code_output" class="control-label">C# code generator:</label>
+                <textarea id="code_output" name="codeGeneratorOutput" readonly rows="25" class="form-control">
+                </textarea>
+            </div>
+        </div>*@
 </div>
 
 <script src="~/js/MermaidRender.js"></script>

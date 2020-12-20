@@ -28,10 +28,6 @@ namespace MDD_Tool
         {
             services.AddRazorPages();
             services.AddMvc();
-
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<MobileContext>(options => options.UseSqlServer(connection));
-            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +53,7 @@ namespace MDD_Tool
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                //endpoints.MapRazorPages();
 
                 endpoints.MapControllerRoute(
                     name: "default",

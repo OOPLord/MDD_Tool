@@ -27,7 +27,7 @@ namespace ModelTransformer
         {
             StringBuilder methodBuilder = new StringBuilder();
 
-            methodBuilder.Append(@$"{AccessModifier} {ReturnType} {Name} (");
+            methodBuilder.Append($"{AccessModifier.ToCorrectString()} {ReturnType} {Name} (");
 
             for (int i = 0; i < Parameters.Count; i++)
             {
@@ -36,10 +36,10 @@ namespace ModelTransformer
                     methodBuilder.Append(", ");
                 }
 
-                methodBuilder.Append(@$"{Parameters[i]}");
+                methodBuilder.Append($"{Parameters[i]}");
             }
 
-            methodBuilder.Append(@$")\n{{ // Method implementation }}");
+            methodBuilder.Append($"){{ // Insert method implementation here... }}");
 
             return methodBuilder.ToString();
         }
