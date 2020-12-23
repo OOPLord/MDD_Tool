@@ -33,13 +33,12 @@ namespace ModelTransformer
                     for (int j = 0; j < classParts.Length; j++)
                     {
                         string part = classParts[j].Trim();
-
                         if (part.Contains("("))
                         {
                             // method
-                            var methodCode = part.Split(":");
+                            var methodCode = part.Split(" ");
 
-                            var accessor = methodCode[0];
+                            var accessor = GetUmlAccessor(methodCode[0][0].ToString());
                             var name = methodCode[0].Substring(1, part.IndexOf('(') - 1);
                             string type = "void";
                             if (methodCode.Length == 2)
@@ -47,7 +46,7 @@ namespace ModelTransformer
                                 type = methodCode[1].Trim();
                             }
 
-                            var method = new MethodTemplate(name, type);
+                            var method = new MethodTemplate(name, type, accessor);
                             methods.Add(method);
                         }
                         else
@@ -62,10 +61,10 @@ namespace ModelTransformer
                             var typeProperty = propertyCode[0];
                             var nameProperty = propertyCode[1];
 
-                            var accessor = typeProperty[0];
+                            var accessor = GetUmlAccessor(typeProperty[0].ToString());
                             var typeString = typeProperty.Substring(1);
 
-                            var property = new PropertyTemplate(nameProperty, typeString);
+                            var property = new PropertyTemplate(nameProperty, typeString, accessor);
                             properties.Add(property);
                         }
                     }
@@ -89,6 +88,24 @@ namespace ModelTransformer
             classes.ForEach(item => namespaceBuilder.Append(item.ToString()));
 
             return namespaceBuilder.ToString();
+        }
+
+        public static AccessModifierType GetUmlAccessor(string accessor)
+        {
+            switch (accessor)
+            {
+                case "+":
+                    return AccessModifierType.Public;
+                case "-":
+                    return AccessModifierType.Private;
+                case "#":
+                    return AccessModifierType.Protected;
+                case "~":
+                    return AccessModifierType.Internal;
+
+                default:
+                    throw new ArgumentException("Accessor is not defined.");
+            }
         }
     }
 }

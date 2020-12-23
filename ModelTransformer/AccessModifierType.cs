@@ -10,6 +10,7 @@ namespace ModelTransformer
         Public = 1,
         Private = 2,
         Protected = 3,
+        Internal = 4,
     }
 
     public static class ParserHelper
@@ -21,19 +22,18 @@ namespace ModelTransformer
                 case AccessModifierType.Default:
                     return "default";
 
-                    break;
                 case AccessModifierType.Public:
                     return "public";
 
-                    break;
                 case AccessModifierType.Private:
                     return "private";
 
-                    break;
                 case AccessModifierType.Protected:
                     return "protected";
 
-                    break;
+                case AccessModifierType.Internal:
+                    return "internal";
+
                 default:
                     throw new ArgumentException("Access modifier type is unknown.");
             }

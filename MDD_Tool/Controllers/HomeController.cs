@@ -10,17 +10,6 @@ namespace MDD_Tool.Controllers
 {
     public class HomeController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public IActionResult Index(UmlCodeModel model)
-        //{
-        //    return Content(UmlParser.Parse(model.UmlCode));
-        //}
-
         [HttpGet]
         public IActionResult Index()
         {
@@ -36,6 +25,11 @@ namespace MDD_Tool.Controllers
             }
 
             return View();
+        }
+
+        public IActionResult FindUser()
+        {
+            return new JsonResult("Founded user");
         }
     }
 }
